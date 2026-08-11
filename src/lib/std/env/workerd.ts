@@ -5,7 +5,7 @@ export const getEnv = (key: keyof Cloudflare.Env): string | undefined => {
 }
 
 export const getEnvRequired = (key: keyof Cloudflare.Env): string => {
-  if (!process.env[key]) throw new Error(`Env ${key} is required`)
+  if (!env[key]) throw new Error(`Env ${key} is required`)
 
   return env[key]!
 }
