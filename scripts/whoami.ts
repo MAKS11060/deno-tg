@@ -1,8 +1,9 @@
 #!/usr/bin/env -S deno run -A --env-file
 
+import {getEnvRequired} from '#env'
 import {Bot} from 'grammy'
 
-const bot = new Bot(Deno.env.get('BOT_TOKEN')!)
+const bot = new Bot(getEnvRequired('BOT_TOKEN'))
 const me = await bot.api.getMe()
 
 const envData = `# .env
