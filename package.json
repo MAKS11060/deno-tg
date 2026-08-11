@@ -19,11 +19,18 @@
   },
   "packageManager": "pnpm@11.8.0",
   "imports": {
+    "#env": {
+      "types": "./src/lib/std/env/node.ts",
+      "deno": "./src/lib/std/env/deno.ts",
+      "workerd": "./src/lib/std/env/workerd.ts",
+      "default": "./src/lib/std/env/node.ts"
+    },
     "#serve": {
-      "bun": "./src/runtime/bun.ts",
-      "deno": "./src/runtime/deno.ts",
-      "node": "./src/runtime/node.ts",
-      "import": "./src/runtime/default.ts"
+      "types": "./src/lib/std/serve/deno.ts",
+      "bun": "./src/lib/std/serve/bun.ts",
+      "deno": "./src/lib/std/serve/deno.ts",
+      "node": "./src/lib/std/serve/node.ts",
+      "workerd": "./src/lib/std/serve/workerd.ts"
     },
     "#lib/*": "./src/lib/*"
   },

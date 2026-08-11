@@ -1,3 +1,3 @@
 export const serve = async (handler: (req: Request) => Promise<Response> | Response) => {
-  console.error('serve not impl')
+  throw new Error(`Current runtime: Workerd doesn't support serve`)
 }

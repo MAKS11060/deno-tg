@@ -1,15 +1,14 @@
-import {env} from 'cloudflare:workers'
+import {getEnv, getEnvRequired} from '#env'
 import createClient from 'openapi-fetch'
-import {userAgent} from '../../config/global.ts'
 import type {components, paths} from './danbooru.oas.ts'
 
 export type DanbooruPost = components['schemas']['post']
 
-export const danbooruUri = env.DANBOORU_URL || 'https://danbooru.donmai.us'
+export const danbooruUri = getEnv('DANBOORU_URL') || 'https://danbooru.donmai.us'
 export const danbooruApi = createClient<paths>({
   baseUrl: danbooruUri,
   headers: {
-    'User-Agent': userAgent,
+    'User-Agent': getEnvRequired('DANBOORU_USER_AGENT') || 'github.com/MAKS11060/tg-maks11060_bot user #1055579',
   },
 })
 
@@ -24,8 +23,8 @@ danbooruApi.use({ // Log error
   },
 })
 
-if (env.DANBOORU_PROXY) {
-  const proxyURL = new URL(env.DANBOORU_PROXY)
+if (getEnv('DANBOORU_PROXY')) {
+  const proxyURL = new URL(getEnv('DANBOORU_PROXY')!)
   danbooruApi.use({
     onRequest({request}) {
       const headers = new Headers()

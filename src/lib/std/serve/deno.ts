@@ -11,5 +11,6 @@ export const serve = async (handler: (req: Request) => Promise<Response> | Respo
       key: Deno.readTextFileSync(KEY),
       cert: Deno.readTextFileSync(CERT),
     }),
+    ...{automaticCompression: true},
   }, handler)
 }

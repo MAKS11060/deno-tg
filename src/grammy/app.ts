@@ -1,11 +1,11 @@
+import {getEnvRequired} from '#env'
 import {danbooruApi} from '#lib/danbooru/danbooru.ts'
 import {danbooruTagsBuilder} from '#lib/danbooru/tags.ts'
 import {createPostInline} from '#lib/helper/danbooru.ts'
 import {getBotLink_tme} from '#lib/helper/telegram.ts'
 import {parseResponse} from '#lib/openapi-fetch.ts'
-import {basicAuth} from '#lib/utils.ts'
+import {basicAuth} from '#lib/std/auth.ts'
 import {fmt} from '@grammyjs/parse-mode'
-import {env} from 'cloudflare:workers'
 import {Composer, InlineKeyboard, InlineQueryResultBuilder} from 'grammy'
 import {CALLBACK_QUERY_TYPE} from './constants.ts'
 
@@ -187,8 +187,8 @@ app.inlineQuery(/^s(ave[s|d]?)?$/i, async (c, next) => {
   const {data: posts} = await parseResponse(danbooruApi.GET('/posts.json', {
     headers: {
       authorization: basicAuth({
-        username: env.DANBOORU_LOGIN,
-        password: env.DANBOORU_APIKEY,
+        username: getEnvRequired('DANBOORU_LOGIN'),
+        password: getEnvRequired('DANBOORU_APIKEY'),
       }),
     },
     params: {
